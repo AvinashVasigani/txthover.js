@@ -1,1 +1,145 @@
-!function(t){t.imgText=function(e,i){t(e);addNewElement=function(e,i){let n=i.pageX,o=i.pageY,s=gtextId("newTxt-id");txtFocus=s,t(e).parent().append("<span contenteditable='true' style='position:absolute; top:"+o+"px;left:"+n+"px' id='"+s+"'  class='text-area txtIod'></span>"),t("#"+s).focus()},gtextId=function(e){let i=1+Math.floor(6*Math.random()),n=3+Math.floor(9*Math.random()),o=e+"-"+Math.floor(i*n);return t("#"+o).length&&(o=e+"-"+parseInt(Math.floor(i*n))+parseInt(Math.floor(i*n))),o},t("body").on("focus","span",function(){generateDynamicId(this)}),generateDynamicId=function(e){let i=gtextId("newTxt-id");txtFocus=i,t(e).attr("id",i),txtFocus=i},t("body").on("blur",".text-area",function(){removeEmpty(this)}),removeEmpty=function(e){t(".text-area").each(function(){""==t(e).text()&&t(e).remove()})};let n=t(".textOp >li"),o=t(".imgBold"),s=t(".colorChnage");t(n).click(function(){titleCase(this),fontStyle(this),fontSize(this)}),imgBold=function(){t("#"+txtFocus).css({"font-weight":"bold"})},changeColor=function(e){let i=t(e).val();t("#"+txtFocus).css({color:i})},titleCase=function(e){t(e).addClass("activeSize"),t(e).siblings().removeClass("activeSize");let i=t(e,".sCase > ul >li.activeSize").text();t("#"+txtFocus).css({"text-transform":i})},fontStyle=function(e){t(e).addClass("activeSize"),t(e).siblings().removeClass("activeSize");let i=t(e,".sc-fsstyles >li.activeSize").text();t("#"+txtFocus).css({"font-style":i})},fontSize=function(e){t(e).addClass("activeSize"),t(e).siblings().removeClass("activeSize");let i=t(".sc-fssize >li.activeSize").val();t("#"+txtFocus).css({"font-size":i+"px"})},t(o).click(function(){imgBold()}),t(s).change(function(){changeColor(this)}),t(e).click(function(t){addNewElement(this,t)})},t.fn.imgText=function(e,i){return api=t.imgText(this,e),t.isFunction(i)&&i.call(api),this}}(jQuery);
+  (function($) {
+
+    $.imgText = function(obj, event) {
+
+        let $img = $(obj);
+
+        addNewElement = function(obj, event) {
+            let left = event.pageX;
+            let top = event.pageY;
+            let dynamicID = gtextId('newTxt-id');
+            txtFocus = dynamicID;
+            $(obj).parent().append("<span contenteditable='true' style='position:absolute; top:" + top + "px;left:" + left + "px' id='" + dynamicID + "'  class='text-area txtIod'></span>");
+            $('#' + dynamicID).focus();
+        }
+        //  generate dynamic id
+        gtextId = function(prefix) {
+            let number = 1 + Math.floor(Math.random() * 6);
+            let randomNumber = 3 + Math.floor(Math.random() * 9);
+            let randomId = prefix + "-" + Math.floor(number * randomNumber);
+            if ($("#" + randomId).length) {
+                randomId = prefix + "-" + parseInt(Math.floor(number * randomNumber)) + parseInt(Math.floor(number * randomNumber));
+            }
+            return randomId;
+        }
+
+        // when focus the id then regenerate the newid
+
+        $('body').on('focus', 'span', function() {
+            generateDynamicId(this);
+        });
+
+
+        generateDynamicId = function(gdi) {
+            let dynamicID = gtextId('newTxt-id');
+            txtFocus = dynamicID;
+            $(gdi).attr('id', dynamicID);
+            txtFocus = dynamicID;
+        };
+
+        //when element is empty then remove the span element
+
+        $('body').on('blur', '.text-area', function() {
+            removeEmpty(this);
+        });
+
+        removeEmpty = function(rempty) {
+            $('.text-area').each(function() {
+                if ($(rempty).text() == '') {
+                    $(rempty).remove();
+                };
+            });
+        }
+
+        let globalVal = $('.textOp >li');
+        let fontSz = $('.imgBold');
+        let colorChnge = $('.colorChnage');
+
+        $(globalVal).click(function() {
+            titleCase(this);
+            fontStyle(this);
+            fontSize(this);
+        });
+        //change fontweight
+
+        imgBold = function() {
+            $('#' + txtFocus).css({
+                'font-weight': 'bold'
+            });
+        };
+
+
+
+        // change color 
+        changeColor = function(i) {
+            let txtClr = $(i).val();
+            $('#' + txtFocus).css({
+                'color': txtClr
+            });
+        };
+
+
+        //change the title case
+        titleCase = function(tc) {
+            $(tc).addClass('activeSize');
+            $(tc).siblings().removeClass('activeSize');
+            let txtStyle = $(tc, '.sCase > ul >li.activeSize').text();
+            $('#' + txtFocus).css({
+                'text-transform': txtStyle
+            });
+        }
+
+
+
+        //change the font style
+
+        fontStyle = function(fs) {
+            $(fs).addClass('activeSize');
+            $(fs).siblings().removeClass('activeSize');
+            let txtStyle = $(fs, '.sc-fsstyles >li.activeSize').text();
+            $('#' + txtFocus).css({
+                'font-style': txtStyle
+            });
+        }
+
+        //change the fontsize
+
+        fontSize = function(fsize) {
+            $(fsize).addClass('activeSize');
+            $(fsize).siblings().removeClass('activeSize');
+            let txtSize = $('.sc-fssize >li.activeSize').val();
+            $('#' + txtFocus).css({
+                'font-size': txtSize + "px"
+            });
+        }
+
+
+        //click functionsFGV
+
+        $(fontSz).click(function() {
+            imgBold();
+        })
+        $(colorChnge).change(function() {
+            changeColor(this);
+        });
+
+         $(obj).click(function(event) {
+            addNewElement(this, event);
+        });
+    }
+
+    $.fn.imgText = function(event, callback) {
+        api = $.imgText(this, event);
+        if ($.isFunction(callback)) callback.call(api);
+        return this;
+    };
+}(jQuery));
+
+
+      let imgText;
+        $(function($){
+             let textover_api;
+               $('.img').imgText({}, function() {
+               textover_api = this;
+               });
+           });
