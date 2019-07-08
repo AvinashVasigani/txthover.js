@@ -136,6 +136,8 @@
 }(jQuery));
 
 
+// instalization
+
       let imgText;
         $(function($){
              let textover_api;
