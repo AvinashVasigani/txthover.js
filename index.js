@@ -1,4 +1,4 @@
-  (function($) {
+(function($) {
 
     $.imgText = function(obj, event) {
 
@@ -12,6 +12,8 @@
             $(obj).parent().append("<span contenteditable='true' style='position:absolute; top:" + top + "px;left:" + left + "px' id='" + dynamicID + "'  class='text-area txtIod'></span>");
             $('#' + dynamicID).focus();
         }
+
+
         //  generate dynamic id
         gtextId = function(prefix) {
             let number = 1 + Math.floor(Math.random() * 6);
@@ -58,7 +60,6 @@
         $(globalVal).click(function() {
             titleCase(this);
             fontStyle(this);
-            fontSize(this);
         });
         //change fontweight
 
@@ -74,7 +75,7 @@
         changeColor = function(i) {
             let txtClr = $(i).val();
             $('#' + txtFocus).css({
-                'color': txtClr
+                'color': txtClr 
             });
         };
 
@@ -89,8 +90,6 @@
             });
         }
 
-
-
         //change the font style
 
         fontStyle = function(fs) {
@@ -104,15 +103,12 @@
 
         //change the fontsize
 
-        fontSize = function(fsize) {
-            $(fsize).addClass('activeSize');
-            $(fsize).siblings().removeClass('activeSize');
-            let txtSize = $('.sc-fssize >li.activeSize').val();
-            $('#' + txtFocus).css({
+           fontSize = function(f) {
+            let txtSize = $(f).val();
+           $('#' + txtFocus).css({
                 'font-size': txtSize + "px"
             });
-        }
-
+        };
 
         //click functionsFGV
 
@@ -122,11 +118,18 @@
         $(colorChnge).change(function() {
             changeColor(this);
         });
+         $(colorChnge).change(function() {
+            changeColor(this);
+        });
+        $('.gfontSze').keyup(function() {
+            fontSize(this);
+        });
 
          $(obj).click(function(event) {
             addNewElement(this, event);
         });
     }
+
 
     $.fn.imgText = function(event, callback) {
         api = $.imgText(this, event);
